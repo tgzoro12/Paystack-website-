@@ -1,15 +1,14 @@
 /**
- * PremiumHub - Paystack Payment Integration
- * 
- * ⚠️ IMPORTANT: Replace the PUBLIC_KEY below with your actual Paystack key
- * - Test key: pk_test_xxxxxxxxxxxxxxxxxxxxxxxxx
- * - Live key: pk_live_xxxxxxxxxxxxxxxxxxxxxxxxx
+ * PremiumHub - Paystack Payment Integration with Backend Verification
  */
 
 // ============================================
-// 🔑 REPLACE THIS KEY WITH YOUR PAYSTACK KEY
+// 🔑 YOUR PAYSTACK PUBLIC KEY
 // ============================================
 const PAYSTACK_PUBLIC_KEY = 'pk_test_ab6a57e4c8fd4dfc8073528b6ac4e88833001c11';
+
+// 🔗 YOUR BACKEND URL
+const BACKEND_URL = 'https://paystack-backend-9g7t.onrender.com';
 
 // Payment amount: ₦16,000 = 1600000 kobo
 const AMOUNT = 1600000;
@@ -40,19 +39,25 @@ function closeModal() {
 }
 
 // ============================================
+// Verify Payment with Backend
+// ============================================
+async function verifyPayment(reference) {
+    try {
+        const response = await fetch(`${BACKEND_URL}/verify/${reference}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Verification error:', error);
+        return { success: false, message: 'Verification failed' };
+    }
+}
+
+// ============================================
 // Paystack Payment
 // ============================================
 function payWithPaystack(email, name) {
-    // Generate unique reference
     const reference = 'PH_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    
-    // Check if key is replaced
-    if (PAYSTACK_PUBLIC_KEY === 'NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY') {
-        alert('⚠️ Please replace PAYSTACK_PUBLIC_KEY in scripts/paystack.js with your actual Paystack public key!');
-        return;
-    }
 
-    // Initialize Paystack
     const handler = PaystackPop.setup({
         key: PAYSTACK_PUBLIC_KEY,
         email: email,
@@ -66,19 +71,32 @@ function payWithPaystack(email, name) {
             ]
         },
         
-        // Payment successful
-        callback: function(response) {
-            console.log('Payment successful:', response);
+        // Payment successful - now verify with backend
+        callback: async function(response) {
+            console.log('Payment response:', response);
             
-            // Store payment info
-            localStorage.setItem('premiumhub_subscribed', 'true');
-            localStorage.setItem('premiumhub_ref', response.reference);
+            // Show loading message
+            alert('Verifying payment... Please wait.');
             
-            // Close modal
-            closeModal();
+            // Verify with backend
+            const verification = await verifyPayment(response.reference);
             
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html?status=success&ref=' + response.reference;
+            if (verification.success) {
+                console.log('Payment verified:', verification);
+                
+                // Store payment info
+                localStorage.setItem('premiumhub_subscribed', 'true');
+                localStorage.setItem('premiumhub_ref', response.reference);
+                localStorage.setItem('premiumhub_email', verification.data.email);
+                
+                // Close modal
+                closeModal();
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html?status=success&ref=' + response.reference;
+            } else {
+                alert('Payment verification failed. Please contact support with reference: ' + response.reference);
+            }
         },
         
         // Payment window closed
@@ -120,7 +138,6 @@ form.addEventListener('submit', (e) => {
     const email = document.getElementById('email').value.trim();
     const name = document.getElementById('name').value.trim();
     
-    // Validate
     if (!email || !email.includes('@')) {
         alert('Please enter a valid email address.');
         return;
@@ -131,7 +148,6 @@ form.addEventListener('submit', (e) => {
         return;
     }
     
-    // Start payment
     payWithPaystack(email, name);
 });
 
@@ -139,4 +155,4 @@ form.addEventListener('submit', (e) => {
 // Console message
 // ============================================
 console.log('%c🚀 PremiumHub Payment Ready', 'color: #6366f1; font-size: 14px; font-weight: bold;');
-console.log('%c💡 Remember to replace PAYSTACK_PUBLIC_KEY!', 'color: #f59e0b;');
+console.log('%c🔐 Backend verification enabled', 'color: #10b981;');
