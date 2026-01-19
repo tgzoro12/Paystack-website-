@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body>
+    <h1>Payment Test</h1>
+    <button id="payBtn">Pay Now</button>
+
+    <script>
+        document.getElementById('payBtn').addEventListener('click', function() {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_ab6a57e4c8fd4dfc8073528b6ac4e88833001c11',
+                email: 'test@email.com',
+                amount: 1600000,
+                currency: 'NGN',
+                callback: function(response) {
+                    alert('Payment complete! Reference: ' + response.reference);
+                },
+                onClose: function() {
+                    alert('Window closed');
+                }
+            });
+            handler.openIframe();
+        });
+    </script>
+</body>
+</html>
