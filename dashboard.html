@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Dashboard | PremiumHub</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">◆ PremiumHub</a>
+            <div class="nav-links">
+                <span class="user-badge">⭐ Premium Member</span>
+                <a href="index.html" class="btn btn-outline btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Main -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Welcome Header -->
+            <div class="dashboard-header">
+                <div>
+                    <h1>Welcome to Your Dashboard! 🎉</h1>
+                    <p>You now have full access to all premium features and resources.</p>
+                </div>
+                <div class="subscription-info">
+                    <span class="status-active">● Active</span>
+                    <p>Renews: <strong id="renewDate">Loading...</strong></p>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">📊</span>
+                    <div>
+                        <span class="stat-number">24</span>
+                        <span class="stat-label">Analytics Reports</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">⬇️</span>
+                    <div>
+                        <span class="stat-number">156</span>
+                        <span class="stat-label">Downloads Available</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🛠️</span>
+                    <div>
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Pro Tools</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🎯</span>
+                    <div>
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Unlimited Access</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="dashboard-grid">
+                <!-- Downloads Section -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>📥 Premium Downloads</h2>
+                        <a href="#" class="link">View All →</a>
+                    </div>
+                    <div class="download-list">
+                        <div class="download-item">
+                            <span class="download-icon">📄</span>
+                            <div class="download-info">
+                                <strong>Business Plan Template</strong>
+                                <span>PDF · 2.4 MB</span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Download</button>
+                        </div>
+                        <div class="download-item">
+                            <span class="download-icon">📊</span>
+                            <div class="download-info">
+                                <strong>Financial Spreadsheet Pack</strong>
+                                <span>XLSX · 1.8 MB</span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Download</button>
+                        </div>
+                        <div class="download-item">
+                            <span class="download-icon">🎨</span>
+                            <div class="download-info">
+                                <strong>Social Media Templates</strong>
+                                <span>ZIP · 15.2 MB</span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Download</button>
+                        </div>
+                        <div class="download-item">
+                            <span class="download-icon">📱</span>
+                            <div class="download-info">
+                                <strong>Marketing Strategy Guide</strong>
+                                <span>PDF · 4.1 MB</span>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Download</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tools Section -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>🛠️ Pro Tools</h2>
+                        <a href="#" class="link">View All →</a>
+                    </div>
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <span class="tool-icon">📈</span>
+                            <strong>Analytics Dashboard</strong>
+                            <p>Track metrics in real-time</p>
+                            <button class="btn btn-outline btn-sm">Launch</button>
+                        </div>
+                        <div class="tool-item">
+                            <span class="tool-icon">✍️</span>
+                            <strong>Content Generator</strong>
+                            <p>Create content fast</p>
+                            <button class="btn btn-outline btn-sm">Launch</button>
+                        </div>
+                        <div class="tool-item">
+                            <span class="tool-icon">🔍</span>
+                            <strong>SEO Analyzer</strong>
+                            <p>Optimize your presence</p>
+                            <button class="btn btn-outline btn-sm">Launch</button>
+                        </div>
+                        <div class="tool-item">
+                            <span class="tool-icon">💰</span>
+                            <strong>Budget Planner</strong>
+                            <p>Manage finances</p>
+                            <button class="btn btn-outline btn-sm">Launch</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Chart -->
+                <section class="dashboard-card full-width">
+                    <div class="card-header">
+                        <h2>📊 Your Analytics Overview</h2>
+                        <select class="select-sm">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 90 days</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-bars">
+                            <div class="bar" style="height: 60%"><span>Mon</span></div>
+                            <div class="bar" style="height: 80%"><span>Tue</span></div>
+                            <div class="bar" style="height: 45%"><span>Wed</span></div>
+                            <div class="bar" style="height: 90%"><span>Thu</span></div>
+                            <div class="bar" style="height: 70%"><span>Fri</span></div>
+                            <div class="bar" style="height: 85%"><span>Sat</span></div>
+                            <div class="bar" style="height: 95%"><span>Sun</span></div>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="chart-stat">
+                                <span class="positive">+24%</span>
+                                <span>Growth</span>
+                            </div>
+                            <div class="chart-stat">
+                                <span>1,234</span>
+                                <span>Views</span>
+                            </div>
+                            <div class="chart-stat">
+                                <span class="positive">+12%</span>
+                                <span>Engagement</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>⚡ Quick Actions</h2>
+                    </div>
+                    <div class="action-list">
+                        <a href="#" class="action-item">
+                            <span>📚</span> Browse All Resources <span class="arrow">→</span>
+                        </a>
+                        <a href="#" class="action-item">
+                            <span>🎓</span> Start Learning Path <span class="arrow">→</span>
+                        </a>
+                        <a href="#" class="action-item">
+                            <span>💬</span> Contact Support <span class="arrow">→</span>
+                        </a>
+                        <a href="#" class="action-item">
+                            <span>⚙️</span> Account Settings <span class="arrow">→</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Activity -->
+                <section class="dashboard-card">
+                    <div class="card-header">
+                        <h2>📋 Recent Activity</h2>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <span class="activity-dot"></span>
+                            <div>
+                                <p>Subscription activated</p>
+                                <span>Just now</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-dot"></span>
+                            <div>
+                                <p>Payment successful</p>
+                                <span>Just now</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-dot"></span>
+                            <div>
+                                <p>Account created</p>
+                                <span>Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Help Banner -->
+            <div class="help-banner">
+                <div>
+                    <h3>Need Help Getting Started?</h3>
+                    <p>Our support team is here to help you make the most of your membership.</p>
+                </div>
+                <button class="btn btn-white">Contact Support</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="container">
+            <p>© 2024 PremiumHub · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        </div>
+    </footer>
+
+    <!-- Success Notification -->
+    <div id="notification" class="notification">
+        <span class="notif-icon">✓</span>
+        <span>Payment successful! Welcome to Premium.</span>
+    </div>
+
+    <script>
+        // Set renewal date
+        const renewDate = new Date();
+        renewDate.setDate(renewDate.getDate() + 30);
+        document.getElementById('renewDate').textContent = renewDate.toLocaleDateString('en-NG', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        // Show notification if coming from payment
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('status') === 'success') {
+            const notif = document.getElementById('notification');
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 5000);
+        }
+    </script>
+</body>
+  </html>
