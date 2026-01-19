@@ -9,7 +9,7 @@
 // ============================================
 // 🔑 REPLACE THIS KEY WITH YOUR PAYSTACK KEY
 // ============================================
-const PAYSTACK_PUBLIC_KEY = 'NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY';
+const PAYSTACK_PUBLIC_KEY = 'pk_test_ab6a57e4c8fd4dfc8073528b6ac4e88833001c11';
 
 // Payment amount: ₦16,000 = 1600000 kobo
 const AMOUNT = 1600000;
