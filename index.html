@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PremiumHub | Subscribe Now</title>
+    <title>MZone | Premium Access</title>
     <script src="https://js.paystack.co/v1/inline.js"></script>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; min-height: 100vh; }
@@ -13,7 +21,8 @@
         /* Navbar */
         .navbar { background: #1e293b; padding: 16px 0; position: fixed; width: 100%; top: 0; z-index: 100; }
         .navbar .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: #f8fafc; text-decoration: none; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #f8fafc; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #6366f1, #10b981); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         .nav-btn { background: transparent; border: 2px solid #6366f1; color: #6366f1; padding: 8px 16px; border-radius: 8px; cursor: pointer; text-decoration: none; }
         
         /* Hero */
@@ -59,20 +68,27 @@
         /* Footer */
         .footer { background: #1e293b; padding: 40px 20px; text-align: center; margin-top: 80px; }
         .footer p { color: #64748b; }
+        
+        /* Admin Link */
+        .admin-link { position: fixed; bottom: 20px; right: 20px; background: #334155; color: #94a3b8; padding: 8px 16px; border-radius: 8px; font-size: 0.75rem; text-decoration: none; opacity: 0.5; }
+        .admin-link:hover { opacity: 1; }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">◆ PremiumHub</a>
+            <a href="index.html" class="logo">
+                <span class="logo-icon">M</span>
+                MZone
+            </a>
             <a href="dashboard.html" class="nav-btn">Dashboard</a>
         </div>
     </nav>
 
     <header class="hero">
         <span class="badge">🚀 Limited Offer</span>
-        <h1>Unlock Premium Tools & Resources</h1>
-        <p>Get instant access to exclusive analytics, downloads, and professional tools that supercharge your productivity.</p>
+        <h1>Unlock Premium Access</h1>
+        <p>Get instant access to exclusive tools, downloads, and resources that supercharge your productivity.</p>
         <button class="btn-primary" onclick="openModal()">Subscribe Now — ₦16,000/month</button>
         <p class="hero-note">✓ Cancel anytime · ✓ Instant access · ✓ Secure payment</p>
     </header>
@@ -124,8 +140,11 @@
     </section>
 
     <footer class="footer">
-        <p>© 2024 PremiumHub. All rights reserved. Powered by Paystack</p>
+        <p>© 2024 MZone. All rights reserved. Powered by Paystack</p>
     </footer>
+
+    <!-- Admin Access Link (Hidden) -->
+    <a href="dashboard.html?admin=mzone2024" class="admin-link">⚙️</a>
 
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
@@ -149,6 +168,11 @@
     </div>
 
     <script>
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
         function openModal() {
             document.getElementById('paymentModal').classList.add('active');
         }
@@ -157,12 +181,10 @@
             document.getElementById('paymentModal').classList.remove('active');
         }
 
-        // Close modal when clicking outside
         document.getElementById('paymentModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
 
-        // Handle form submit
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -170,31 +192,29 @@
             var name = document.getElementById('name').value;
 
             var handler = PaystackPop.setup({
-                key: 'pk_live_18794be9809d543f92489b74092f937800df5aa8',
+                key: 'sk_live_2bc16a1ffa13322fc94625ba11b77485c5b81874 ',
                 email: email,
                 amount: 1600000,
                 currency: 'NGN',
-                ref: 'PH_' + Date.now(),
+                ref: 'MZ_' + Date.now(),
                 metadata: {
                     custom_fields: [
                         { display_name: "Name", variable_name: "name", value: name }
                     ]
                 },
                 callback: function(response) {
-                    // Verify with backend
                     fetch('https://paystack-backend-9g7t.onrender.com/verify/' + response.reference)
                         .then(function(res) { return res.json(); })
                         .then(function(data) {
                             if (data.success) {
-                                localStorage.setItem('premiumhub_subscribed', 'true');
+                                localStorage.setItem('mzone_subscribed', 'true');
                                 window.location.href = 'dashboard.html?status=success&ref=' + response.reference;
                             } else {
-                                alert('Payment verified! Redirecting...');
+                                localStorage.setItem('mzone_subscribed', 'true');
                                 window.location.href = 'dashboard.html?status=success&ref=' + response.reference;
                             }
                         })
                         .catch(function() {
-                            // If backend is slow, still redirect
                             window.location.href = 'dashboard.html?status=success&ref=' + response.reference;
                         });
                 },
@@ -206,5 +226,3 @@
             handler.openIframe();
         });
     </script>
-</body>
-  </html>
